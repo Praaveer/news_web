@@ -1,22 +1,31 @@
 const API_KEY = "2645ad5a7bdc435384fb6da7b7bb7456";
-const url="https://newsapi.org/v2/everything?q=";
+const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+const url = `${proxyUrl}https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+const request = new Request(url);
 
-window.addEventListener("load",() => fetchNews("India"));
-function reload()
-{
+window.addEventListener("load", () => fetchNews("India"));
+function reload() {
       window.location.reload();
 }
-async function fetchNews(query)
-{
-       const res = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
-       const data = await res.json();
-      //  console.log(data);
+async function fetchNews(query) {
+      //  const res = await fetch(url);
+      //  const data = await res.json();
+      // console.log(data);
+      fetch(request)
+            .then(response => response.json())
+            .then((data) => {
+                  console.log(data);
+                  bindData(data.articles);
+
+            })
+            .catch(error => {
+                  console.log(error);
+            });
       console.log('check');
-       bindData(data.articles);
+      // bindData(data.articles);
 }
 
-function bindData(article)
-{
+function bindData(article) {
       const cardsContainer = document.getElementById('cards-container');
       const newsCardTemplate = document.getElementById('template-news-card');
 
@@ -25,7 +34,7 @@ function bindData(article)
       article.forEach(article => {
             if (!article.urlToImage) return;
             const cardClone = newsCardTemplate.content.cloneNode(true);
-            fillDataInCard(cardClone,article);
+            fillDataInCard(cardClone, article);
             cardsContainer.appendChild(cardClone);
       });
 
@@ -39,20 +48,19 @@ function fillDataInCard(cardClone, article) {
 
       // console.log(newsImg);
 
-     newsImg.src = article.urlToImage;
-     newsTitle.innerHTML = article.title;
-     newsDesc.innerHTML = article.description;
-     
-     const date = new Date(article.publishedAt).toLocaleString("en-US",{timeZone:"Asia/Jakarta"});
+      newsImg.src = article.urlToImage;
+      newsTitle.innerHTML = article.title;
+      newsDesc.innerHTML = article.description;
 
-     newsSource.innerHTML = `${article.source.name}.${date}`;
+      const date = new Date(article.publishedAt).toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
 
-     cardClone.firstElementChild.addEventListener("click",()=>{ window.open(article.url,"_blank")});
+      newsSource.innerHTML = `${article.source.name}.${date}`;
+
+      cardClone.firstElementChild.addEventListener("click", () => { window.open(article.url, "_blank") });
 
 }
 let curSelectedNav = null;
-function onNavItemClick(id)
-{
+function onNavItemClick(id) {
       fetchNews(id);
       const navItem = document.getElementById(id);
       curSelectedNav?.classList.remove('active');
@@ -63,10 +71,10 @@ function onNavItemClick(id)
 const searchButton = document.getElementById('search-button');
 const searchText = document.getElementById('search-text');
 
-searchButton.addEventListener('click',() =>{
-  const query = searchText.value;
-  if(!query) return;
-  fetchNews(query);   
-   curSelectedNav?.classList.remove('active');
-   curSelectedNav = null;
+searchButton.addEventListener('click', () => {
+      const query = searchText.value;
+      if (!query) return;
+      fetchNews(query);
+      curSelectedNav?.classList.remove('active');
+      curSelectedNav = null;
 })
