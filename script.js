@@ -10,7 +10,8 @@ async function fetchNews(query)
 {
        const res = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
        const data = await res.json();
-       console.log(data);
+      //  console.log(data);
+      console.log('check');
        bindData(data.articles);
 }
 
@@ -36,7 +37,7 @@ function fillDataInCard(cardClone, article) {
       const newsSource = cardClone.querySelector('.news-source');
       const newsDesc = cardClone.querySelector('.news-desc');
 
-      console.log(newsImg);
+      // console.log(newsImg);
 
      newsImg.src = article.urlToImage;
      newsTitle.innerHTML = article.title;
