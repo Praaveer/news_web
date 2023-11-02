@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>News App</title>
+      <link rel="stylesheet" href="style.css">
+</head>
+<body>
+      
+<nav>
+      <div class="main-nav container flex">
+            <a href="#" onclick="reload()" class="company-logo">
+                  <img src="./assets/logo.jpg" alt="company logo">
+            </a>
+            <div class="nav-links">
+                  <ul container flex>
+                         <li class="hover-link nav-item" id="national" onclick="onNavItemClick('national')">National</li>
+                        <li class="hover-link nav-item" id="international"onclick="onNavItemClick('international')">International</li>
+                        <li class="hover-link nav-item" id="finance"onclick="onNavItemClick('finance')">finance</li>
+                        <li class="hover-link nav-item" id="defence"onclick="onNavItemClick('defence')">Defence</li>
+                        <li class="hover-link nav-item" id="sports"onclick="onNavItemClick('sports')">Sports</li>
+                        <li class="hover-link nav-item" id="entertainment"onclick="onNavItemClick('entertainment')">Entertainment</li>
+                  </ul>
+            </div>
+            <div class="search-bar flex">
+                  <input id="search-text" type="text" class="news-input" placeholder="e.g National">
+                  <button id="search-button" class="search-button">Search</button>
+            </div>
+      </div>
+</nav>
+
+
+<main>
+      <div class="cards-container container flex" id="cards-container">
+        
+      </div>
+</main>
+<template id="template-news-card">
+      <div class="card">
+            <div class="card-header">
+                  <img src="http://via.placeholder.com/400x200" alt="news image " class ="news-img">
+            </div>
+            <div class="card-content">
+                  <h3 class="news-title"
+                 >this is the title</h3>
+                  <h6 class="news-source"
+                  >end gadget 05/10/2023</h6>
+                  <p class="news-desc">Lorem ipsum olor sit amet consectetur adipisicing elit. Sapiente, ea tempora eaque aspernatur inventore optio dicta quod saepe ab alias?</p>
+            </div>
+      </div>
+</template>
+      <script src="script.js"></script>
+</body>
+</html>
